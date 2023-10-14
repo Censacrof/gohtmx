@@ -1,3 +1,4 @@
 tools/
+tmp/
 web/static/tailwind.css
 gohtmx
