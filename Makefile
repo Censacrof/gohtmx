@@ -18,7 +18,7 @@ $(TW):
 
 $(TW_CONTENT):
 
-$(TW_OUT): $(TW_CONTENT)
+$(TW_OUT): $(TW) $(TW_CONTENT)
 	$(TW) -m --content $(TW_CONTENT) -i $(TW_IN) -o $@
 .PHONY: $(TW_OUT)
 

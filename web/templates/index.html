@@ -1,10 +1,18 @@
 <html>
   <head>
     <title>{{.Title}}</title>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
     <link rel="stylesheet" href="static/tailwind.css" />
   </head>
 
   <body>
     <h1 class="text-red-500">Hello World</h1>
+    <button
+      class="rounded p-2 bg-slate-500 text-white"
+      hx-get="/clicked"
+      hx-swap="outerHTML"
+    >
+      Click me!
+    </button>
   </body>
 </html>

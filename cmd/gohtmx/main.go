@@ -11,7 +11,7 @@ type Page struct {
 	Title string
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func index(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("web/templates/index.html")
 
 	page := &Page{
@@ -21,10 +21,17 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, page)
 }
 
+func clicked(w http.ResponseWriter, r *http.Request) {
+	t, _ := template.ParseFiles("web/templates/clicked.html")
+
+	t.Execute(w, struct{}{})
+}
+
 func main() {
 	fmt.Println("Server started on http://localhost:8080/")
 
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/", index)
+	http.HandleFunc("/clicked/", clicked)
 
 	fs := http.FileServer(http.Dir("./web/static"))
 	http.Handle("/static/", http.StripPrefix("/static", fs))
