@@ -12,7 +12,8 @@ import (
 func Homepage(w http.ResponseWriter, r *http.Request) {
 	var body = components.BasePage{
 		Title: "Homepage",
-	}.String()
+		Body:  components.Wrapper{}.HTML(),
+	}.HTML()
 
 	w.Write([]byte(body))
 }
