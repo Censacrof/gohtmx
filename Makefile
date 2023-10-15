@@ -1,7 +1,7 @@
 TW=./tools/tailwindcss
-TW_IN=web/static/style/input.css
-TW_OUT=web/static/style/tailwind.css
-TW_CONTENT=web/**/*.{html,js}
+TW_IN=./web/static/style/input.css
+TW_OUT=./web/static/style/tailwind.css
+TW_CONTENT=./web/**/*.{html,js}
 
 AIR=./tools/air
 
