@@ -1,9 +1,6 @@
 package view
 
 import (
-	// "fmt"
-	// "html/template"
-
 	"net/http"
 
 	"github.com/Censacrof/gohtmx/cmd/gohtmx/components"
@@ -12,7 +9,9 @@ import (
 func Homepage(w http.ResponseWriter, r *http.Request) {
 	var body = components.BasePage{
 		Title: "Homepage",
-		Body:  components.Wrapper{}.HTML(),
+		Body: components.Wrapper{
+			Content: components.UserList{}.HTML(),
+		}.HTML(),
 	}.HTML()
 
 	w.Write([]byte(body))

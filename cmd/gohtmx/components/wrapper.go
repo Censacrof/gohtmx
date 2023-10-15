@@ -7,13 +7,14 @@ import (
 )
 
 type Wrapper struct {
+	Content template.HTML
 }
 
 //go:embed wrapper.html
 var wrapperTemplate string
 
 func (self Wrapper) HTML() template.HTML {
-	t, err := template.New("basepage").Parse(wrapperTemplate)
+	t, err := template.New("wrapper").Parse(wrapperTemplate)
 	if err != nil {
 		panic(err)
 	}
