@@ -18,6 +18,8 @@ func Homepage(w http.ResponseWriter, r *http.Request) {
 func main() {
 	fmt.Println("Server started on http://localhost:8080/")
 
+	http.HandleFunc("/_hotreloadws", hotreload)
+
 	http.HandleFunc("/", view.Homepage)
 
 	fs := http.FileServer(http.Dir("./web/static"))
