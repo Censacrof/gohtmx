@@ -2,27 +2,15 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
-	"text/template"
+
+	"github.com/Censacrof/gohtmx/cmd/gohtmx/view"
 )
 
-type Page struct {
-	Title string
-}
-
-func index(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("web/templates/index.html")
-
-	page := &Page{
-		Title: "Homepage",
-	}
-
-	t.Execute(w, page)
-}
-
-func clicked(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("web/templates/clicked.html")
+func Homepage(w http.ResponseWriter, r *http.Request) {
+	t, _ := template.ParseFiles("web/templates/homepage.html")
 
 	t.Execute(w, struct{}{})
 }
@@ -30,8 +18,7 @@ func clicked(w http.ResponseWriter, r *http.Request) {
 func main() {
 	fmt.Println("Server started on http://localhost:8080/")
 
-	http.HandleFunc("/", index)
-	http.HandleFunc("/clicked/", clicked)
+	http.HandleFunc("/", view.Homepage)
 
 	fs := http.FileServer(http.Dir("./web/static"))
 	http.Handle("/static/", http.StripPrefix("/static", fs))
