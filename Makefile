@@ -14,7 +14,7 @@ run: build
 
 gohtmx: $(TW_OUT)
 	go build ./cmd/gohtmx
-	.PHONY: gohtmx
+.PHONY: gohtmx
 
 dev: $(AIR)
 	$(AIR)
