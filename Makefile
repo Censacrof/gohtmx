@@ -3,6 +3,8 @@ TW_IN=web/static/input.css
 TW_OUT=web/static/tailwind.css
 TW_CONTENT=web/**/*.{html,js}
 
+AIR=./tools/air
+
 build: gohtmx
 .PHONY: build
 
@@ -10,6 +12,14 @@ run: build
 	./gohtmx
 .PHONY: build
 
+gohtmx: $(TW_OUT)
+	go build ./cmd/gohtmx
+	.PHONY: gohtmx
+
+dev: $(AIR)
+	$(AIR)
+
+# tailwindcss standalone cli tool
 $(TW):
 	@echo "downloading tailwindcss cli..."
 	mkdir -p $(@D)
@@ -22,8 +32,8 @@ $(TW_OUT): $(TW) $(TW_CONTENT)
 	$(TW) -m --content $(TW_CONTENT) -i $(TW_IN) -o $@
 .PHONY: $(TW_OUT)
 
-gohtmx: $(TW_OUT)
-	go build ./cmd/gohtmx
-.PHONY: gohtmx
-
-
+# air
+$(AIR):
+	@echo "downloading air..."
+	mkdir -p $(@D)
+	curl -SfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s -- -b $(@D)
