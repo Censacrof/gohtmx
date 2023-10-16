@@ -1,4 +1,8 @@
 <h2 class="flex flex-col items-center text-2xl">User list</h2>
-<div class="grow flex flex-col items-stretch gap-4 bg-zinc-700 rounded-md p-2">
-  {{.Entries}}
+<div class="relative grow">
+  <div
+    class="absolute inset-0 flex flex-col items-stretch gap-4 bg-zinc-700 rounded-md p-2 overflow-y-auto"
+  >
+    {{.Entries}}
+  </div>
 </div>
