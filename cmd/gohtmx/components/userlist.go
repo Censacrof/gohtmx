@@ -7,6 +7,7 @@ import (
 )
 
 type UserList struct {
+	Entries template.HTML
 }
 
 //go:embed userlist.html
