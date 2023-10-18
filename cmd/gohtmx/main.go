@@ -2,21 +2,16 @@ package main
 
 import (
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
 
 	"github.com/Censacrof/gohtmx/cmd/gohtmx/view"
 )
 
-func Homepage(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("web/templates/homepage.html")
-
-	t.Execute(w, struct{}{})
-}
+const PORT = 8000
 
 func main() {
-	fmt.Println("Server started on http://localhost:8080/")
+	fmt.Printf("Server started on http://localhost:%d/\n", PORT)
 
 	http.HandleFunc("/_hotreloadws", hotreload)
 
@@ -25,5 +20,5 @@ func main() {
 	fs := http.FileServer(http.Dir("./web/static"))
 	http.Handle("/static/", http.StripPrefix("/static", fs))
 
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", PORT), nil))
 }
