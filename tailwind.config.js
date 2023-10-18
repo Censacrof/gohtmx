@@ -7,7 +7,7 @@ module.exports = {
         "page-layout": "0.2fr 1fr 0.2fr",
       },
       gridTemplateColumns: {
-        "page-layout": "0.2fr 1fr 0.2fr",
+        "page-layout": "1fr min-content 1fr",
       },
     },
   },
