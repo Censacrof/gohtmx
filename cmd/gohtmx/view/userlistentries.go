@@ -13,11 +13,17 @@ func getUserListEntriesPage(from int, size int) template.HTML {
 	var entries template.HTML
 
 	for i := 0; i < size; i++ {
-		avatar := template.URL(fmt.Sprintf("https://robohash.org/%d", i))
+		avatar := template.URL(fmt.Sprintf("https://robohash.org/%d", from+i))
 		entries += userlist.UserListEntry{
 			Avatar: avatar,
 		}.HTML()
 	}
+
+	entries += userlist.LoadMoreButton{
+		From: from + size,
+		Size: size,
+	}.HTML()
+
 	return entries
 }
 
