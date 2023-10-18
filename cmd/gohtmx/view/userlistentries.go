@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Censacrof/gohtmx/cmd/gohtmx/components"
+	"github.com/Censacrof/gohtmx/cmd/gohtmx/components/userlist"
 )
 
 func getUserListEntriesPage(from int, size int) template.HTML {
@@ -14,7 +14,7 @@ func getUserListEntriesPage(from int, size int) template.HTML {
 
 	for i := 0; i < size; i++ {
 		avatar := template.URL(fmt.Sprintf("https://robohash.org/%d", i))
-		entries += components.UserListEntry{
+		entries += userlist.UserListEntry{
 			Avatar: avatar,
 		}.HTML()
 	}

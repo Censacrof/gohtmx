@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/Censacrof/gohtmx/cmd/gohtmx/components"
+	"github.com/Censacrof/gohtmx/cmd/gohtmx/components/userlist"
 )
 
 func Homepage(w http.ResponseWriter, r *http.Request) {
@@ -11,11 +12,8 @@ func Homepage(w http.ResponseWriter, r *http.Request) {
 
 	var body = components.BasePage{
 		Title: "Homepage",
-		Body: components.Wrapper{
-			Content: components.UserList{
-				Entries: intial_entries,
-			}.HTML(),
-		}.HTML(),
+		Head:  "",
+		Body:  components.Wrapper{Content: userlist.UserList{Entries: intial_entries}.HTML()}.HTML(),
 	}.HTML()
 
 	w.Write([]byte(body))
