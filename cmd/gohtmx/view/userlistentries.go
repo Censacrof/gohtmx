@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/Censacrof/gohtmx/cmd/gohtmx/components/userlist"
 )
@@ -19,7 +20,7 @@ func getUserListEntriesPage(from int, size int) template.HTML {
 		}.HTML()
 	}
 
-	entries += userlist.LoadMoreButton{
+	entries += userlist.LoadMore{
 		From: from + size,
 		Size: size,
 	}.HTML()
@@ -28,6 +29,9 @@ func getUserListEntriesPage(from int, size int) template.HTML {
 }
 
 func UserListEntries(w http.ResponseWriter, r *http.Request) {
+	// simulate delay
+	time.Sleep(1 * time.Second)
+
 	var query = r.URL.Query()
 
 	from, err := strconv.Atoi(query.Get("from"))
