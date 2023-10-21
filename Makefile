@@ -2,6 +2,7 @@ TW=./tools/tailwindcss
 TW_IN=./web/static/style/input.css
 TW_OUT=./web/static/style/tailwind.css
 TW_CONTENT=./{web,cmd}/**/*.{html,js}
+TW_CONFIG=./tailwind.config.js
 
 AIR=./tools/air
 
@@ -13,6 +14,7 @@ run: build
 .PHONY: build
 
 gohtmx: $(TW_OUT)
+	templ generate
 	go build ./cmd/gohtmx
 .PHONY: gohtmx
 
@@ -29,7 +31,7 @@ $(TW):
 $(TW_CONTENT):
 
 $(TW_OUT): $(TW) $(TW_CONTENT)
-	$(TW) -m --content $(TW_CONTENT) -i $(TW_IN) -o $@
+	$(TW) -c $(TW_CONFIG) -m -i $(TW_IN) -o $@
 .PHONY: $(TW_OUT)
 
 # air
