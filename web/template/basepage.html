@@ -1,15 +1,13 @@
 <html>
   <head>
-    <title>{{.Title}}</title>
+    <title>{{ block "title" . }}Default title{{ end }}</title>
     <script src="https://unpkg.com/htmx.org@1.9.6"></script>
     <link rel="stylesheet" href="static/style/tailwind.css" />
 
     <script src="static/js/hotreload.js"></script>
-
-    {{.Head}}
   </head>
 
   <body class="bg-zinc-900 text-zinc-50">
-    {{.Body}}
+    {{ block "body" . }}Default body{{ end }}
   </body>
 </html>
