@@ -43,5 +43,7 @@ func homepage(w http.ResponseWriter, r *http.Request) {
 func infinitescroll(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(templateloader.GetBaseTemplate().ParseFiles("web/template/infinitescroll/infinitescroll.html"))
 
-	t.Execute(w, struct{}{})
+	t.ExecuteTemplate(w, "infinitescroll.html", PageData{
+		Title: "Infinite scroll",
+	})
 }
