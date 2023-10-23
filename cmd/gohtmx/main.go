@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
-	"github.com/a-h/templ"
+	"text/template"
 )
 
 const PORT = 8000
@@ -20,8 +19,14 @@ func main() {
 	// hot reload
 	http.HandleFunc("/_hotreloadws", hotreload)
 
-	// // // views
-	http.Handle("/", templ.Handler(HomePage()))
+	// views
+	http.HandleFunc("/", homepage)
 
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", PORT), nil))
+}
+
+func homepage(w http.ResponseWriter, r *http.Request) {
+	t := template.Must(template.ParseFiles("web/template/homepage.html"))
+
+	t.Execute(w, struct{}{})
 }

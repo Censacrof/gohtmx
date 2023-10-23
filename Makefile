@@ -14,7 +14,6 @@ run: build
 .PHONY: build
 
 gohtmx: $(TW_OUT)
-	templ generate
 	go build ./cmd/gohtmx
 .PHONY: gohtmx
 
