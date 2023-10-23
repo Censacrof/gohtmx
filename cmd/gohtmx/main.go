@@ -40,10 +40,28 @@ func homepage(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+type User = struct {
+	Avatar string
+}
+
 func infinitescroll(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(templateloader.GetBaseTemplate().ParseFiles("web/template/infinitescroll/infinitescroll.html"))
 
-	t.ExecuteTemplate(w, "infinitescroll.html", PageData{
-		Title: "Infinite scroll",
+	t.ExecuteTemplate(w, "infinitescroll.html", struct {
+		PageData
+		Users []User
+	}{
+		PageData: PageData{Title: "Infinite scroll"},
+		Users: []User{
+			{
+				Avatar: "https://robohash.org/0",
+			},
+			{
+				Avatar: "https://robohash.org/1",
+			},
+			{
+				Avatar: "https://robohash.org/2",
+			},
+		},
 	})
 }
