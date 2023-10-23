@@ -8,6 +8,18 @@
   </div>
 {{ end }}
 
+{{ define "load_more" }}
+  <div
+    class="animate-pulse bg-slate-800 p-4"
+    hx-trigger="intersect once"
+    hx-get="./userlist?from={{ .From }}&size={{ .Size }}"
+    hx-target="this"
+    hx-swap="outerHTML"
+  >
+    Loading more users...
+  </div>
+{{ end }}
+
 
 <!doctype html>
 <html lang="en">
@@ -24,6 +36,8 @@
         {{ range $i, $user := .Users }}
           {{ template "userlist_entry" $user }}
         {{ end }}
+
+        {{ template "load_more" .LoadMore }}
       </div>
     </div>
     {{ template "wrapper_close" . }}

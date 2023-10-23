@@ -5,6 +5,8 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
+	"time"
 
 	"github.com/Censacrof/gohtmx/cmd/gohtmx/templateloader"
 )
@@ -23,7 +25,9 @@ func main() {
 
 	// views
 	http.HandleFunc("/", homepage)
+
 	http.HandleFunc("/infinitescroll/", infinitescroll)
+	http.HandleFunc("/infinitescroll/userlist", userlist)
 
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", PORT), nil))
 }
@@ -44,24 +48,70 @@ type User = struct {
 	Avatar string
 }
 
+type LoadMore = struct {
+	From int
+	Size int
+}
+
 func infinitescroll(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(templateloader.GetBaseTemplate().ParseFiles("web/template/infinitescroll/infinitescroll.html"))
 
 	t.ExecuteTemplate(w, "infinitescroll.html", struct {
 		PageData
 		Users []User
+		LoadMore
 	}{
 		PageData: PageData{Title: "Infinite scroll"},
-		Users: []User{
-			{
-				Avatar: "https://robohash.org/0",
-			},
-			{
-				Avatar: "https://robohash.org/1",
-			},
-			{
-				Avatar: "https://robohash.org/2",
-			},
+		Users:    getUserListPage(0, 10),
+		LoadMore: LoadMore{
+			From: 10,
+			Size: 10,
+		},
+	})
+}
+
+func getUserListPage(from int, size int) []User {
+	var res []User
+
+	for i := from; i < from+size; i++ {
+		res = append(res, User{
+			Avatar: fmt.Sprintf("https://robohash.org/%d", i),
+		})
+	}
+
+	return res
+}
+
+func userlist(w http.ResponseWriter, r *http.Request) {
+	// simulate delay
+	time.Sleep(1 * time.Second)
+
+	var query = r.URL.Query()
+
+	from, err := strconv.Atoi(query.Get("from"))
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("<p>Invalid value for 'from' argument</p>"))
+		return
+	}
+
+	size, err := strconv.Atoi(query.Get("size"))
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("<p>Invalid value for 'size' argument</p>"))
+		return
+	}
+
+	t := template.Must(templateloader.GetBaseTemplate().ParseFiles("web/template/infinitescroll/infinitescroll.html", "web/template/infinitescroll/userlist.html"))
+
+	t.ExecuteTemplate(w, "userlist.html", struct {
+		Users []User
+		LoadMore
+	}{
+		Users: getUserListPage(from, size),
+		LoadMore: LoadMore{
+			From: from + size,
+			Size: size,
 		},
 	})
 }
