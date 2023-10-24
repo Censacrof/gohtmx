@@ -29,6 +29,8 @@ func main() {
 	http.HandleFunc("/infinitescroll/", infinitescroll)
 	http.HandleFunc("/infinitescroll/userlist", userlist)
 
+	http.HandleFunc("/activesearch/", activesearch)
+
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", PORT), nil))
 }
 
@@ -113,5 +115,13 @@ func userlist(w http.ResponseWriter, r *http.Request) {
 			From: from + size,
 			Size: size,
 		},
+	})
+}
+
+func activesearch(w http.ResponseWriter, r *http.Request) {
+	t := template.Must(templateloader.GetBaseTemplate().ParseFiles("web/template/activesearch/activesearch.html"))
+
+	t.ExecuteTemplate(w, "activesearch.html", PageData{
+		Title: "Active search",
 	})
 }
