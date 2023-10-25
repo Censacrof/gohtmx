@@ -1,3 +1,9 @@
+{{ define "button_class" }}
+  rounded-md bg-zinc-700 text-start p-2 text-zinc-300 hover:bg-zinc-600
+  hover:text-zinc-200
+{{ end }}
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -8,60 +14,28 @@
     <h2 class="flex flex-col items-center text-2xl">Active search</h2>
 
     <input
-      class="px-4 py-2 text-gray-900"
+      class="rounded-md bg-zinc-200 px-4 py-1 text-zinc-600 shadow-inner"
       type="text"
       placeholder="eg. John Doe"
     />
     <div
-      class="flex h-56 flex-col gap-2 overflow-y-auto rounded-md bg-zinc-50 p-2 text-zinc-900"
+      class="flex h-56 flex-col gap-2 overflow-y-auto rounded-md bg-zinc-700 p-2 text-zinc-900 shadow-inner"
     >
-      <button
-        class="rounded-md p-2 text-start hover:bg-zinc-600 hover:text-zinc-200"
-      >
-        Mario
-      </button>
+      <button class="{{ template "button_class" . }}">Mario</button>
 
-      <button
-        class="rounded-md p-2 text-start hover:bg-zinc-600 hover:text-zinc-200"
-      >
-        Luigi
-      </button>
+      <button class="{{ template "button_class" . }}">Luigi</button>
 
-      <button
-        class="rounded-md p-2 text-start hover:bg-zinc-600 hover:text-zinc-200"
-      >
-        Peach
-      </button>
+      <button class="{{ template "button_class" . }}">Peach</button>
 
-      <button
-        class="rounded-md p-2 text-start hover:bg-zinc-600 hover:text-zinc-200"
-      >
-        Toad
-      </button>
+      <button class="{{ template "button_class" . }}">Toad</button>
 
-      <button
-        class="rounded-md p-2 text-start hover:bg-zinc-600 hover:text-zinc-200"
-      >
-        Toad
-      </button>
+      <button class="{{ template "button_class" . }}">Toad</button>
 
-      <button
-        class="rounded-md p-2 text-start hover:bg-zinc-600 hover:text-zinc-200"
-      >
-        Toad
-      </button>
+      <button class="{{ template "button_class" . }}">Toad</button>
 
-      <button
-        class="rounded-md p-2 text-start hover:bg-zinc-600 hover:text-zinc-200"
-      >
-        Toad
-      </button>
+      <button class="{{ template "button_class" . }}">Toad</button>
 
-      <button
-        class="rounded-md p-2 text-start hover:bg-zinc-600 hover:text-zinc-200"
-      >
-        Toad
-      </button>
+      <button class="{{ template "button_class" . }}">Toad</button>
     </div>
 
     {{ template "wrapper_close" . }}
