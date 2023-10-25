@@ -10,7 +10,7 @@
 
 {{ define "load_more" }}
   <div
-    class="animate-pulse bg-slate-800 p-4"
+    class="animate-pulse bg-zinc-800 p-4"
     hx-trigger="intersect once"
     hx-get="./userlist?from={{ .From }}&size={{ .Size }}"
     hx-target="this"
