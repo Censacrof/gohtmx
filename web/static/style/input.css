@@ -16,11 +16,12 @@
   /* Handle */
   ::-webkit-scrollbar-thumb {
     @apply bg-zinc-800;
+    @apply bg-opacity-50;
     @apply rounded-full;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-zinc-700;
+    @apply bg-opacity-80;
   }
 }
