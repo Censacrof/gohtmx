@@ -13,29 +13,24 @@
     {{ template "wrapper_open" . }}
     <h2 class="flex flex-col items-center text-2xl">Active search</h2>
 
-    <input
-      class="rounded-md bg-zinc-200 px-4 py-1 text-zinc-600 shadow-inner"
-      type="text"
-      placeholder="eg. John Doe"
-    />
-    <div
-      class="flex h-56 flex-col gap-2 overflow-y-auto rounded-md bg-zinc-700 p-2 text-zinc-900 shadow-inner"
-    >
-      <button class="{{ template "button_class" . }}">Mario</button>
-
-      <button class="{{ template "button_class" . }}">Luigi</button>
-
-      <button class="{{ template "button_class" . }}">Peach</button>
-
-      <button class="{{ template "button_class" . }}">Toad</button>
-
-      <button class="{{ template "button_class" . }}">Toad</button>
-
-      <button class="{{ template "button_class" . }}">Toad</button>
-
-      <button class="{{ template "button_class" . }}">Toad</button>
-
-      <button class="{{ template "button_class" . }}">Toad</button>
+    <div class="relative flex flex-col">
+      <input
+        class="rounded-md bg-zinc-200 px-4 py-1 text-zinc-600 shadow-inner"
+        type="text"
+        placeholder="eg. John Doe"
+      />
+      <div
+        class="absolute left-0 right-0 top-[calc(100%+0.5rem)] flex h-56 flex-col gap-2 overflow-y-auto rounded-md bg-zinc-700 p-2 text-zinc-900 shadow-inner"
+      >
+        <button class="{{ template "button_class" . }}">Mario</button>
+        <button class="{{ template "button_class" . }}">Luigi</button>
+        <button class="{{ template "button_class" . }}">Peach</button>
+        <button class="{{ template "button_class" . }}">Toad</button>
+        <button class="{{ template "button_class" . }}">Toad</button>
+        <button class="{{ template "button_class" . }}">Toad</button>
+        <button class="{{ template "button_class" . }}">Toad</button>
+        <button class="{{ template "button_class" . }}">Toad</button>
+      </div>
     </div>
 
     {{ template "wrapper_close" . }}
