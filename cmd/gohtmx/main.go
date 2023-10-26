@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/Censacrof/gohtmx/cmd/gohtmx/templateloader"
@@ -30,6 +31,7 @@ func main() {
 	http.HandleFunc("/infinitescroll/userlist", userlist)
 
 	http.HandleFunc("/activesearch/", activesearch)
+	http.HandleFunc("/activesearch/suggestion", suggestion)
 
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", PORT), nil))
 }
@@ -118,10 +120,88 @@ func userlist(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+var names []string = []string{
+	"Emily Johnson",
+	"Michael Smith",
+	"Sophia Davis",
+	"Daniel Wilson",
+	"Olivia Brown",
+	"Christopher Lee",
+	"Ava Anderson",
+	"William Martin",
+	"Isabella Clark",
+	"James Rodriguez",
+	"Mia Martinez",
+	"Benjamin Hall",
+	"Charlotte Baker",
+	"Alexander Taylor",
+	"Emma White",
+	"Joseph Lewis",
+	"Harper Harris",
+	"Samuel Scott",
+	"Amelia Moore",
+	"David Turner",
+	"Abigail Nelson",
+	"Nicholas King",
+	"Grace Walker",
+	"Ethan Green",
+	"Elizabeth Carter",
+	"Matthew Allen",
+	"Madison Thomas",
+	"Andrew Mitchell",
+	"Chloe Murphy",
+	"Benjamin Turner",
+	"Lily Anderson",
+	"Jackson Bennett",
+	"Aria Parker",
+	"Henry Foster",
+	"Victoria Garcia",
+	"Gabriel Young",
+	"Grace Hill",
+	"Jonathan Reed",
+	"Avery Powell",
+	"Oliver Evans",
+	"Sophia Jenkins",
+	"Samuel Gray",
+	"Harper Williams",
+	"Christopher Adams",
+	"Ava Hayes",
+	"William Parker",
+	"Isabella Cooper",
+	"Daniel Mitchell",
+	"Mia Turner",
+	"Joseph Brooks",
+}
+
+func getSuggestions(str string) []string {
+	var suggestions []string
+
+	for _, name := range names {
+		if !strings.Contains(strings.ToLower(name), strings.ToLower(str)) {
+			continue
+		}
+
+		suggestions = append(suggestions, name)
+	}
+
+	return suggestions
+}
+
 func activesearch(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(templateloader.GetBaseTemplate().ParseFiles("web/template/activesearch/activesearch.html"))
 
 	t.ExecuteTemplate(w, "activesearch.html", PageData{
 		Title: "Active search",
 	})
+}
+
+func suggestion(w http.ResponseWriter, r *http.Request) {
+	t := template.Must(templateloader.GetBaseTemplate().ParseFiles("web/template/activesearch/activesearch.html"))
+
+	query := r.URL.Query()
+	str := query.Get("str")
+
+	suggestions := getSuggestions(str)
+
+	t.ExecuteTemplate(w, "suggestions_list", suggestions)
 }

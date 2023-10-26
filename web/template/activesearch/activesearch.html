@@ -1,6 +1,11 @@
-{{ define "button_class" }}
-  rounded-md bg-zinc-700 text-start p-2 text-zinc-300 hover:bg-zinc-600
-  hover:text-zinc-200
+{{ define "suggestions_list" }}
+  {{ range $suggestion := . }}
+    <button
+      class="rounded-md bg-zinc-700 p-2 text-start text-zinc-300 hover:bg-zinc-600 hover:text-zinc-200"
+    >
+      {{ $suggestion }}
+    </button>
+  {{ end }}
 {{ end }}
 
 
@@ -16,21 +21,17 @@
     <div class="relative flex flex-col">
       <input
         class="rounded-md bg-zinc-200 px-4 py-1 text-zinc-600 shadow-inner"
-        type="text"
+        type="search"
         placeholder="eg. John Doe"
+        name="str"
+        hx-get="suggestion"
+        hx-trigger="keyup changed delay:500ms, search"
+        hx-target="#suggestions-list"
       />
       <div
+        id="suggestions-list"
         class="absolute left-0 right-0 top-[calc(100%+0.5rem)] flex max-h-56 flex-col gap-2 overflow-y-auto rounded-md bg-zinc-700 p-2 text-zinc-900 shadow-inner"
-      >
-        <button class="{{ template "button_class" . }}">Mario</button>
-        <button class="{{ template "button_class" . }}">Luigi</button>
-        <button class="{{ template "button_class" . }}">Peach</button>
-        <button class="{{ template "button_class" . }}">Toad</button>
-        <button class="{{ template "button_class" . }}">Toad</button>
-        <button class="{{ template "button_class" . }}">Toad</button>
-        <button class="{{ template "button_class" . }}">Toad</button>
-        <button class="{{ template "button_class" . }}">Toad</button>
-      </div>
+      ></div>
     </div>
 
     {{ template "wrapper_close" . }}
