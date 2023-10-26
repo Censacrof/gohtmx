@@ -1,11 +1,18 @@
 {{ define "suggestions_list" }}
-  {{ range $suggestion := . }}
-    <button
-      class="rounded-md bg-zinc-700 p-2 text-start text-zinc-300 hover:bg-zinc-600 hover:text-zinc-200"
-    >
-      {{ $suggestion }}
-    </button>
-  {{ end }}
+  <div
+    class="absolute left-0 right-0 top-[calc(100%+0.5rem)] flex max-h-56 flex-col gap-2 overflow-y-auto rounded-md bg-zinc-700 p-2 text-zinc-900 shadow-inner"
+  >
+    {{ if not . }}
+      No results
+    {{ end }}
+    {{ range $suggestion := . }}
+      <button
+        class="rounded-md bg-zinc-700 p-2 text-start text-zinc-300 hover:bg-zinc-600 hover:text-zinc-200"
+      >
+        {{ $suggestion }}
+      </button>
+    {{ end }}
+  </div>
 {{ end }}
 
 
@@ -18,20 +25,38 @@
     {{ template "wrapper_open" . }}
     <h2 class="flex flex-col items-center text-2xl">Active search</h2>
 
-    <div class="relative flex flex-col">
+    <div class="relative flex flex-col" hx-ext="loading-states">
       <input
         class="rounded-md bg-zinc-200 px-4 py-1 text-zinc-600 shadow-inner"
         type="search"
         placeholder="eg. John Doe"
+        id="str"
         name="str"
         hx-get="suggestion"
         hx-trigger="keyup changed delay:500ms, search"
         hx-target="#suggestions-list"
+        hx-swap="innerHTML"
+        data-loading-target="#suggestions-list"
       />
-      <div
-        id="suggestions-list"
-        class="absolute left-0 right-0 top-[calc(100%+0.5rem)] flex max-h-56 flex-col gap-2 overflow-y-auto rounded-md bg-zinc-700 p-2 text-zinc-900 shadow-inner"
-      ></div>
+      <div id="suggestions-list" data-loading-class="animate-pulse"></div>
+
+      <script>
+        // window.addEventListener("load", () => {
+        //   const suggestionsListContainer = document.querySelector(
+        //     "#suggestions-list-container",
+        //   );
+        //   const input = document.querySelector("#str");
+        //   input.addEventListener("input", (e) => {
+        //     if (e.target.value.length === 0) {
+        //       suggestionsListContainer.style.display = "none";
+        //     } else {
+        //       suggestionsListContainer.style.removeProperty("display");
+        //     }
+        //   });
+
+        //   input.addEventListener("focus", (e) => {});
+        // });
+      </script>
     </div>
 
     {{ template "wrapper_close" . }}

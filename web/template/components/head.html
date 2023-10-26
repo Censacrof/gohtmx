@@ -3,6 +3,13 @@
   <title>{{ .Title }}</title>
 
   <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+  <script src="https://unpkg.com/htmx.org/dist/ext/loading-states.js"></script>
+  <style>
+    [data-loading] {
+      display: none;
+    }
+  </style>
+
   <link rel="stylesheet" href="/static/style/tailwind.css" />
   <script src="/static/js/hotreload.js"></script>
 {{ end }}
