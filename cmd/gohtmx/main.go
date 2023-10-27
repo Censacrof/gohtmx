@@ -203,7 +203,5 @@ func suggestion(w http.ResponseWriter, r *http.Request) {
 
 	suggestions := getSuggestions(str)
 
-	time.Sleep(time.Second * 5)
-
 	t.ExecuteTemplate(w, "suggestions_list", suggestions)
 }
