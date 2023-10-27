@@ -41,21 +41,17 @@
       <div id="suggestions-list" data-loading-class="animate-pulse"></div>
 
       <script>
-        // window.addEventListener("load", () => {
-        //   const suggestionsListContainer = document.querySelector(
-        //     "#suggestions-list-container",
-        //   );
-        //   const input = document.querySelector("#str");
-        //   input.addEventListener("input", (e) => {
-        //     if (e.target.value.length === 0) {
-        //       suggestionsListContainer.style.display = "none";
-        //     } else {
-        //       suggestionsListContainer.style.removeProperty("display");
-        //     }
-        //   });
+        window.addEventListener("load", () => {
+          const suggestionsList = document.querySelector("#suggestions-list");
+          const input = document.querySelector("#str");
+          input.addEventListener("focus", (e) => {
+            suggestionsList.style.removeProperty("display");
+          });
 
-        //   input.addEventListener("focus", (e) => {});
-        // });
+          input.addEventListener("blur", (e) => {
+            suggestionsList.style.display = "none";
+          });
+        });
       </script>
     </div>
 
