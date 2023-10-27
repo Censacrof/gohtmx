@@ -8,6 +8,7 @@
     {{ range $suggestion := . }}
       <button
         class="rounded-md bg-zinc-700 p-2 text-start text-zinc-300 hover:bg-zinc-600 hover:text-zinc-200"
+        onclick="setStrInputValue('{{ $suggestion }}')"
       >
         {{ $suggestion }}
       </button>
@@ -41,16 +42,15 @@
       <div id="suggestions-list" data-loading-class="animate-pulse"></div>
 
       <script>
+        function setStrInputValue(str) {
+          const input = document.querySelector("#str");
+          input.value = str;
+          input.focus();
+        }
+
         window.addEventListener("load", () => {
           const suggestionsList = document.querySelector("#suggestions-list");
           const input = document.querySelector("#str");
-          input.addEventListener("focus", (e) => {
-            suggestionsList.style.removeProperty("display");
-          });
-
-          input.addEventListener("blur", (e) => {
-            suggestionsList.style.display = "none";
-          });
         });
       </script>
     </div>
